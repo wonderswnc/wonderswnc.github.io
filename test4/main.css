@@ -1,0 +1,67 @@
+body{
+	font-family: "microsoft yahei";
+	margin: 0px;
+	padding: 0px;
+	background-color: #eff0f4;
+}
+
+.head{
+	width: 100%;
+	line-height: 60px;
+	background-color: #68cdd5;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.head .head_left{
+	font-size: 32px;
+	float: left;
+	margin-left: 10px;
+}
+.head .head_mid{
+	font-size: 36px;
+	
+}
+.head .head_right{
+	font-size: 32px;
+	float: right;
+	margin-right: 10px;
+}
+
+.inp{
+	width: 100%;
+	height: 300px;
+}
+
+
+.inp input{
+	width: 100%;
+	height: 98px;
+	border: none;
+	margin-top: 20px;
+	font-size: 32px;
+	padding-left: 130px;
+}
+
+.inp .inp_1{
+	background-image: url(img/登陆_02.png);
+	background-repeat: no-repeat;
+}
+.inp .inp_2{
+	background-image: url(img/登陆_05.png);
+	background-repeat: no-repeat;
+}
+.login input{
+	width: 100%;
+	font-size: 36px;
+	line-height: 106px;
+	background-color: #68cdd5;
+	color: #FFFFFF;
+	font-family: "microsoft yahei";
+	border: none;
+}
+.login span{
+	font-size: 32px;
+	color: #68CDD5;
+	float: right;
+}
