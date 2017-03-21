@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge chrome=1">
 	<title>九宫格</title>
 	<style type="text/css">
-		.normal{
+		.normal {
 			float: right;
 			width: 30%;
 			padding-top: 30%;
@@ -15,8 +15,40 @@
 			border-radius: 2vw;
 			background-color: goldenrod;
 		}
-		
+		.btn {
+			float: left;
+			width: 45%;
+			height: 60px;
+			border: 1px solid goldenrod;
+			border-radius: 1vw;
+			margin: 2vw;
+			background-color: white;
+			font-size: 2em;
+		}
+		button:hover ,:focus{
+			background-color: goldenrod;
+		}
 	</style>
+	
+	<script type="text/javascript">
+		var i;
+		function start(){
+			i = setInterval("changeColor()",1000);
+		}
+		function changeColor(){
+			var div = document.getElementById("warp").getElementsByTagName("div");
+			for (var i = 0;i < div.length;i ++){
+				div[i].style.backgroundColor = "goldenrod";
+			}
+			var num = [1,2,3,4,5,6,7,8,9];
+			var color = ['#CDBE70','#CDBA96','#C1CDCD','#BDBDBD','#C1FFC1','#CD00CD','#C71585','#BCD2EE','#A52A2A','#A6A6A6','#BABABA','#C6E2FF','#BDB76B'];
+			num.sort(function(){return 0.5-Math.random()});
+			color.sort(function(){return 0.5-Math.random()});
+			for (var i = 0;i < 3;i ++){
+				div[num[i]].style.backgroundColor = color[i];
+			}
+		}
+	</script>
 </head>
 <body>
 	<div id="warp">
@@ -30,5 +62,7 @@
 		<div class="normal"></div>
 		<div class="normal"></div>
 	</div>
+    <button class="btn" onclick="start()">开始闪</button>
+	<button class="btn" onclick="clearInterval(i)">结束闪</button>
 </body>
 </html>
