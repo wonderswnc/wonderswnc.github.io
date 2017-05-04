@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Priview Slideshow</title>
+    <style>
+        * {padding: 0;margin: 0}
+        body {
+            padding: 50px 0;
+            font-size: 14px;background-color: #fff;
+            font-family: "Avenir Next";
+            color: #555;
+            -webkit-font-smoothing: antialiased;
+        }
+        .slide .main .main-i,
+        .slide .main,
+        .slide {
+            width: 100%;height: 400px;
+            position: relative;
+        }
+        .slide .main{
+            overflow: hidden;
+        }
+        .slide .main .main-i{}
+        .slide .main .main-i img{
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .slide .main .main-i .caption{
+            position: absolute;
+            right: 50%;top: 30%;
+            z-index: 9;
+        }
+        .slide .main .main-i .caption h2{
+            font-size: 40px;
+            line-height: 40px;
+            text-align: right;
+            color: #B5B5B5;
+        }
+        .slide .main .main-i .caption h3{
+            font-size: 70px;
+            line-height: 70px;
+            text-align: right;
+            color: #000000;
+        }
+        .slide .ctrl {
+            width: 100%;
+            height: 13px;
+            line-height: 13px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            bottom: -13px;
+            /*background-color: #F00;*/
+        } 
+        .slide .ctrl .ctrl-i {
+            display: inline-block;
+            width: 150px;
+            height: 13px;
+            background-color: #666;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin-left: 1px;
+            overflow: hidden;
+        }
+        .slide .ctrl .ctrl-i img {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            bottom: 50px;
+            opacity: 0;
+        }  
+        .slide .ctrl .ctrl-i:hover {
+            background-color: #F0F0F0;
+            overflow: inherit;
+        }  
+        .slide .ctrl .ctrl-i:hover img {
+            display: inherit;
+            -webkit-box-reflect: below 0 linear-gradient(to right bottom,transparent,transparent 50%,rgba(255,255,255,0.3));
+            opacity: 1;
+            bottom: 13px;
+            transition: all 0.2s;
+            
+            
+        } 
+        .slide .ctrl .ctrl-i_active:hover,
+        .slide .ctrl .ctrl-i_active {
+            background-color: #000;
+        }
+        .slide .ctrl .ctrl-i_active:hover img {
+            opacity: 0;
+        }  
+
+        .slide .main .main-i {
+            opacity: 0;
+            position: absolute;
+            right: 50%;;top: 0;
+            transition: all .2s;
+        }
+        .slide .main .main-i_active {
+            opacity: 1;
+            right: 0;
+        }
+
+        .slide .main .main-i h2 {
+            margin-right: 45px;
+        }
+        .slide .main .main-i h3 {
+            margin-right: -45px;
+        }
+        .slide .main .main-i_active h3,
+        .slide .main .main-i_active h2 {
+            margin-right: 0;
+            transition: all .1s .2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="main" id="template_main">
+            <div class="main-i" id="main_{index}">
+                <div class="caption">
+                    <h2>{h2}</h2>
+                    <h3>{h3}</h3>
+                </div>
+                <img src="{img}" />
+            </div>
+        </div>
+        <div class="ctrl" id="template_ctrl">
+            <a class="ctrl-i" id="ctrl_{index}" href="javascript:switchSlide({index});">
+                <img src="{img}" />
+            </a>
+        </div>
+        
+    </div>
+
+    <script>
+        var data = [
+            {img: "images2/1.jpg",h2: "Friendly",h3: "DEVIL",index: 1},
+            {img: "images2/2.jpg",h2: "Tranquilent",h3: "COMPATRIOT",index: 2},
+            {img: "images2/3.jpg",h2: "Insecure",h3: "DEVIL",index: 3},
+            {img: "images2/4.jpg",h2: "Passionate",h3: "SEEKER",index: 4},
+            {img: "images2/5.jpg",h2: "Crazy",h3: "FRIEND",index: 5}
+        ];
+
+        function g(id) {
+            if (id.substr(0,1) == ".")
+                return document.getElementsByClassName(id.substr(1));
+            return document.getElementById(id);
+        }
+
+        function addSlides() {
+            var temp_main = g("template_main").innerHTML
+                                                        .replace(/^\s*/,"")
+                                                        .replace(/\s*$/,"");
+            var temp_ctrl = g("template_ctrl").innerHTML
+                                                        .replace(/^\s*/,"")
+                                                        .replace(/\s*$/,"");
+
+            var out_main = [],out_ctrl = [];
+            for (let i of data) {
+                var _html_main = temp_main
+                                          .replace(/{img}/,i.img)
+                                          .replace(/{h2}/,i.h2)
+                                          .replace(/{h3}/,i.h3)
+                                          .replace(/{index}/g,i.index);
+                var _html_ctrl = temp_ctrl
+                                          .replace(/{index}/g,i.index)
+                                          .replace(/{img}/,i.img);
+                out_main.push(_html_main);
+                out_ctrl.push(_html_ctrl);
+            }
+
+            g("template_main").innerHTML = out_main.join("");
+            g("template_ctrl").innerHTML = out_ctrl.join("");
+        }
+
+        window.onload = function() {
+            addSlides();
+            switchSlide(2);
+        }
+
+        function switchSlide(index) {
+            var main_id = "main_" + index;
+            var ctrl_id = "ctrl_" + index;
+            var ele = g(main_id);
+            var ctrl_ele = g(ctrl_id);
+            var eles = g(".main-i");
+            var ctrl_eles = g(".ctrl-i");
+            for (let i of eles){
+                i.className = i.className.replace(/\s+main-i_active/,"");
+            }
+            ele.className += " main-i_active";
+            for (let i of ctrl_eles) {
+                i.className = i.className.replace(/\s+ctrl-i_active/,"");
+            }
+            ctrl_ele.className += " ctrl-i_active";
+        }
+    </script>
+</body>
+</html>
