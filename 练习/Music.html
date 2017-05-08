@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html {
+            background-color: #338FCC;
+        }
+        .musicPlayer {
+            width: 400px;
+            padding: 20px;
+            height: auto;
+            position: absolute;
+            background: #FFFFFF;
+            top: 50%;left: 50%;
+            transform: translate(-50%,-50%);
+            display: flex;
+            flex-flow: row wrap;
+            border-radius: .5vw;
+            box-shadow: 0 0 5px #000000;
+        }
+        .musicPlayer .info {
+            flex: 1 1 100%;
+            font-size: 20px;
+            line-height: 30px;
+            /*background-color: red;*/
+            text-align: center;
+            font-weight: bold;
+
+        }
+
+        .musicPlayer .pic {
+            flex: 1 1 100%;
+            height: 300px;
+            /*background: yellow;*/
+            margin-top: 10px;
+            border-radius: .5vw;
+            box-shadow: 0 0 5px #555;
+            overflow: hidden;
+        }
+
+        .musicPlayer .ctrlMeun {
+            flex: 1 1 100%;
+            height: 50px;
+            display: flex;
+            flex-grow: row nowrap;
+            margin-top: 10px;
+        }
+
+        .ctrlMeun .ctrlVol {
+            flex: 2;
+            background-color: #555;
+            background: url(svg/音量.svg) no-repeat 5px center;
+            background-size: 30px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ctrlMeun .ctrlPus {
+            margin: 0 10px;
+            flex: 1;
+            display: flex;
+        }
+        
+        .ctrlMeun .nextSong {
+            flex: 1;
+            display: flex;
+        }
+
+        .info > h2 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .pic > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ctrlVol  input {
+            margin-left: 45px;
+            width: calc(100% - 40px);
+            height: 20px;
+            border-radius: .5vw;
+            -webkit-appearance: none;
+        }
+        .ctrlVol  input:focus {
+            outline: none;
+        }
+        .ctrlVol  input::-webkit-slider-runnable-track {
+            height: 100%;
+            border-radius: .5vw;
+            border: 1px solid #555;
+        }
+        .ctrlVol  input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;width: 18px;
+            border-radius: 50%;
+            background-color: #555;
+        }
+        .ctrlImg {
+            width: 70%;
+            height: 70%;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="musicPlayer">
+        <div class="info" id="info">
+        </div>
+        <div class="pic" id="pic">
+            <img src="" alt="">
+        </div>
+        <div class="ctrlMeun">
+            <div class="ctrlVol">
+                <input type="range"  value="50" min="0" max="100" id="ctrlVol" oninput="changeVol()"/>
+            </div>
+            <div class="ctrlPus" onclick="toggleStatus()">
+                <img src="svg/开始.svg" alt="" class="ctrlImg" id="ctrl" />
+            </div>
+            <div class="nextSong">
+                <img src="svg/下一曲.svg" onclick="setSong()" alt="" class="ctrlImg" />
+            </div>
+        </div>
+    </div>
+
+
+    <div>
+        <audio controls style="display:none;" id="audio">
+        </audio>
+    </div>
+
+    <script>
+        window.onload = function() {
+            setSong();
+        }
+
+        function setSong() {
+            var songUrl = "";
+            var jsonpEle = document.createElement("script");
+            var url = "http://api.jirengu.com/fm/getSong.php?channel=4&callback=getSong";
+            jsonpEle.setAttribute("src",url);
+            document.head.appendChild(jsonpEle);
+            document.head.removeChild(jsonpEle);
+        }
+
+        function getSong(data) {
+            console.log(data);
+            songUrl = data.song[0].url;
+            document.getElementsByTagName("audio")[0].setAttribute("src",songUrl);
+            document.getElementById("info").innerHTML = data.song[0].title + " -" + data.song[0].artist;
+            document.getElementById("pic").getElementsByTagName("img")[0].src = data.song[0].picture;
+        }
+
+        function toggleStatus() {
+            var ctrl = document.getElementById("ctrl");
+            changeVol();
+            if (audio.paused) {
+                play()
+            } else {
+                pause();
+            }
+        }
+
+        function play() {
+            ctrl.src = "svg/暂停.svg";
+            audio.play();
+        }
+
+        function pause() {
+            ctrl.src = "svg/开始.svg";
+            audio.pause();
+        }
+
+        function changeVol() {
+            var audio = document.getElementById("audio");
+            audio.volume = document.getElementById("ctrlVol").value / 100;
+        }
+
+    </script>
+</body>
+</html>
