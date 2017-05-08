@@ -143,7 +143,7 @@
         function setSong() {
             var songUrl = "";
             var jsonpEle = document.createElement("script");
-            var url = "http://api.jirengu.com/fm/getSong.php?channel=4&callback=getSong";
+            var url = "https://jirenguapi.applinzi.com/fm/getSong.php?channel=4&callback=getSong";
             jsonpEle.setAttribute("src",url);
             document.head.appendChild(jsonpEle);
             document.head.removeChild(jsonpEle);
