@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        
+        const CANVASWIDTH = 800;
+        const CANVASHEIGHT = 600;
+
+        window.onload = function () {
+
+            var canvas = document.createElement("canvas");
+            document.body.appendChild(canvas);
+
+            canvas.width = CANVASWIDTH;
+            canvas.height = CANVASHEIGHT;
+            canvas.style.border = "1px solid #555";
+            canvas.style.backgroundColor = "black";
+            canvas.style.marginLeft = "550px";
+
+            var context = canvas.getContext("2d");
+
+            var ballObj = creatBalls();
+            setInterval(function () {
+                addBalls(ballObj, context);
+            }, 10);
+
+
+        }
+
+        function creatBalls() {
+
+            var balls = [];
+            for (let i = 0; i < 100; i++) {
+
+                let ball = {};
+                ball.speedX = Math.floor(Math.random() * 5 + 1);
+                ball.speedY = Math.floor(Math.random() * 5 + 1);
+                ball.size = Math.floor(Math.random() * 30 + 10);
+                ball.positonX = Math.floor(Math.random() * (CANVASWIDTH - ball.size * 2) + ball.size);
+                ball.positonY = Math.floor(Math.random() * (CANVASHEIGHT - ball.size * 2) + ball.size);
+                ball.color =
+                    `rgb( ${Math.floor(Math.random()*256)} ,  ${Math.floor(Math.random()*256)} ,  ${Math.floor(Math.random()*256)} )`;
+
+                balls.push(ball);
+            }
+
+            return balls;
+        }
+
+        function addBalls(ballArr, ctx) {
+
+            ctx.clearRect(0, 0, CANVASWIDTH, CANVASHEIGHT);
+
+            for (let obj of ballArr) {
+
+                drawBalls(obj, ctx);
+            }
+
+        }
+
+        function drawBalls(obj, ctx) {
+
+            ctx.beginPath();
+            ctx.arc(obj.positonX, obj.positonY, obj.size, 0, 2 * Math.PI);
+            ctx.closePath();
+
+            ctx.fillStyle = obj.color;
+            ctx.fill();
+
+            obj.positonX += obj.speedX;
+            obj.positonY += obj.speedY;
+
+            obj.speedX = (obj.positonX + obj.size) > CANVASWIDTH ? obj.speedX * -1 : (obj.positonX - obj.size) > 0 ?
+                obj.speedX : obj.speedX * -1;
+            obj.speedY = (obj.positonY + obj.size) > CANVASHEIGHT ? obj.speedY * -1 : (obj.positonY - obj.size) > 0 ?
+                obj.speedY : obj.speedY * -1;
+
+        }
+    </script>
+</body>
+
+</html>
