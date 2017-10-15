@@ -7,8 +7,8 @@
   <title>Document</title>
   <style>
     html {background-color: rgba(0,0,0,.2)}
-    .images {position: relative;width: 1080px;margin: 0 auto}
-    .images > img {width: 200px;border-radius: 10px;box-shadow: -5px 8px 5px rgba(0,0,0,.5);position: absolute}
+    .images {position: relative;margin: 0 90px;width: 100%;}
+    .images > img {border-radius: 10px;box-shadow: -5px 8px 5px rgba(0,0,0,.5);position: absolute}
     .images > img:hover {transform: scale(2);z-index: 999;transition: all 3s}
     .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0}
   </style>
@@ -18,11 +18,24 @@
   <p class="loading" style="display: none">加载中 ...</p>
   <script>
 
-    var obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0,'index4': 0};
-    var index = 0;
+    var obj, index, IMG_WIDTH;
 
     window.onload = function() {
+      initialArgs();
       getImages(50, index++);
+    }
+
+    window.onresize = function() {
+      initialArgs();
+      getImages(50, index++);
+    }
+
+    function initialArgs() {
+      var parent = document.querySelector('.images');
+      IMG_WIDTH = ((parent.offsetWidth - 80 - 180) / 5) | 0;
+      obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0,'index4': 0};
+      parent.innerHTML = '';
+      index = 0;
     }
 
     window.onscroll = function() {
@@ -34,7 +47,7 @@
     }
 
     function getImages( number, index ) {
-      var url = `//gank.io/api/data/福利/${number}/${index}`;
+      var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
       loading.style.display = 'block';
       fetch(url).then(res => res.json()).then(res => {
@@ -58,9 +71,10 @@
       var len = document.querySelectorAll('.images > img').length;
       var minNumber = Math.min.apply(null, Object.values(obj));
       var index = Object.values(obj).indexOf(minNumber);
-      target.style.left = index * 220 + 'px';
+      target.style.width = IMG_WIDTH + 'px';
+      target.style.left = index * (IMG_WIDTH + 20) + 'px';
       target.style.top = `${Math.min.apply(null, Object.values(obj))}px`;
-      obj[`index${index}`] = obj[`index${index}`] + (200 * (info.height / info.width)) + 20;
+      obj[`index${index}`] = obj[`index${index}`] + (IMG_WIDTH * (info.height / info.width)) + 20;
       images.appendChild(target);
     }
 
