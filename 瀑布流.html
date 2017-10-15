@@ -33,7 +33,7 @@
     }
 
     function getImages( number, index ) {
-      var url = `http://gank.io/api/data/福利/${number}/${index}`;
+      var url = `//gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
       loading.style.display = 'block';
       fetch(url).then(res => res.json()).then(res => {
