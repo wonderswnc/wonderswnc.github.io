@@ -18,7 +18,7 @@
   <p class="loading" style="display: none">加载中 ...</p>
   <script>
 
-    var index = 0, arr = [], imgarr = [];
+    var index = 0, arr = [], imgarr = [], IMG_WIDTH = 200;
 
     window.onload = function() {
       getImages(50, index++);
@@ -37,6 +37,11 @@
       var images = document.querySelector('.images');
       images.innerHTML = '';
       index = 0;arr = [];imgarr = [];
+      if (images.clientWidth <= 800) {
+        IMG_WIDTH = 100;
+      } else {
+        IMG_WIDTH = 200;
+      }
       setTimeout(() => getImages(50, index ++), 200);
     }
 
@@ -64,7 +69,7 @@
       var images = document.querySelector('.images');
       var wrapperWidth = images.offsetWidth;
       var allWidth = arr.length === 0 ? 0 : arr.reduce((pre, next) => pre + next);
-      var imgWidth = 200 * info.width / info.height;
+      var imgWidth = IMG_WIDTH * info.width / info.height;
       if (allWidth + imgWidth > wrapperWidth) {
         imgarr.map((img, index) => {
           img.style.width = (wrapperWidth * arr[index] / allWidth) + 'px';
