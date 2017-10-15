@@ -7,9 +7,9 @@
   <title>Document</title>
   <style>
     html {background-color: rgba(0,0,0,.2)}
-    .images {position: relative;margin: 0 90px;width: 100%;}
+    .images {position: relative;margin: 0 5%;width: 90%;}
     .images > img {border-radius: 10px;box-shadow: -5px 8px 5px rgba(0,0,0,.5);position: absolute}
-    .images > img:hover {transform: scale(2);z-index: 999;transition: all 3s}
+    .images > img:hover {transform: scale(2);z-index: 999;transition: all 2s}
     .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0}
   </style>
 </head>
@@ -32,10 +32,22 @@
 
     function initialArgs() {
       var parent = document.querySelector('.images');
-      IMG_WIDTH = ((parent.offsetWidth - 80 - 180) / 5) | 0;
-      obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0,'index4': 0};
-      parent.innerHTML = '';
-      index = 0;
+      if (parent.offsetWidth < 880) {
+        IMG_WIDTH = ((parent.offsetWidth - 40) / 3) | 0;
+        obj = {'index0': 0,'index1': 0,'index2': 0};
+        parent.innerHTML = '';
+        index = 0;
+      } else if (parent.offsetWidth < 1280) {
+        IMG_WIDTH = ((parent.offsetWidth - 60) / 4) | 0;
+        obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0};
+        parent.innerHTML = '';
+        index = 0;
+      } else {
+        IMG_WIDTH = ((parent.offsetWidth - 80) / 5) | 0;
+        obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0,'index4': 0};
+        parent.innerHTML = '';
+        index = 0;
+      }
     }
 
     window.onscroll = function() {
