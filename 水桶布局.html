@@ -33,6 +33,13 @@
       }
     }
 
+    window.onresize = function() {
+      var images = document.querySelector('.images');
+      images.innerHTML = '';
+      index = 0;arr = [];imgarr = [];
+      setTimeout(() => getImages(50, index ++), 200);
+    }
+
     function getImages( number, index ) {
       var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
