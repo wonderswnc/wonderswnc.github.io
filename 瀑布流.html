@@ -6,13 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
+    html {background-color: rgba(0,0,0,.2)}
     .images {position: relative;width: 1080px;margin: 0 auto}
-    .images > img {width: 200px}
+    .images > img {width: 200px;border-radius: 10px;box-shadow: -5px 8px 5px rgba(0,0,0,.5)}
+    .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0}
   </style>
 </head>
 <body>
-  <div class="images">
-  </div>
+  <div class="images"></div>
+  <p class="loading" style="display: none">加载中 ...</p>
   <script>
 
     var obj = {'index0': 0,'index1': 0,'index2': 0,'index3': 0,'index4': 0};
@@ -26,15 +28,16 @@
       var doc = document.documentElement;
       var position = doc.clientHeight + doc.scrollTop;
       if (position >= Math.min.apply(null, Object.values(obj))) {
-        setTimeout(function() {
           getImages(20, index++);
-        }, 500);
       }
     }
 
     function getImages( number, index ) {
-      var url = `//gank.io/api/data/福利/${number}/${index}`;
+      var url = `http://gank.io/api/data/福利/${number}/${index}`;
+      var loading = document.querySelector('.loading');
+      loading.style.display = 'block';
       fetch(url).then(res => res.json()).then(res => {
+        loading.style.display = 'none';
         res.results.map(info => {
           renderImage(info.url, appendImg);
         })
