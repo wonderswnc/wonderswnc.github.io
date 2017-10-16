@@ -21,6 +21,7 @@
     var index = 0, arr = [], imgarr = [], IMG_WIDTH = 200;
 
     window.onload = function() {
+      initialArgs();
       getImages(50, index++);
     }
 
@@ -34,6 +35,11 @@
     }
 
     window.onresize = function() {
+      initialArgs();
+      setTimeout(() => getImages(50, index ++), 200);
+    }
+
+    function initialArgs() {
       var images = document.querySelector('.images');
       images.innerHTML = '';
       index = 0;arr = [];imgarr = [];
@@ -42,7 +48,6 @@
       } else {
         IMG_WIDTH = 200;
       }
-      setTimeout(() => getImages(50, index ++), 200);
     }
 
     function getImages( number, index ) {
