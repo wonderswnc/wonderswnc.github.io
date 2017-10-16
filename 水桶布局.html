@@ -35,6 +35,8 @@
     }
 
     window.onresize = function() {
+      if (/Mobile/.test(window.navigator.userAgent))
+        return false;
       initialArgs();
       setTimeout(() => getImages(50, index ++), 200);
     }
