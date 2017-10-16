@@ -10,12 +10,12 @@
     .images {width: 100%;overflow: hidden;font-size: 0}
     .images > img {display: inline-block;border-radius: 4px;box-shadow: 0 0 6px 2px rgba(0,0,0,.5);transform: scale(.95)}
     .images > img:hover {transform: scale(2);position: relative;z-index: 999;transition: all 3s}
-    .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0}
+    .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0;transition: all .5s;}
   </style>
 </head>
 <body>
   <div class="images"></div>
-  <p class="loading" style="display: none">加载中 ...</p>
+  <p class="loading" style="visibility: hidden">加载中 ...</p>
   <script>
 
     var index = 0, arr = [], imgarr = [], IMG_WIDTH = 200;
@@ -55,9 +55,9 @@
     function getImages( number, index ) {
       var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
-      loading.style.display = 'block';
+      loading.style.display = 'visibility';
       fetch(url).then(res => res.json()).then(res => {
-        loading.style.display = 'none';
+        loading.style.visibility = 'hidden';
         res.results.map(info => {
           renderImage(info.url, appendImg);
         })
