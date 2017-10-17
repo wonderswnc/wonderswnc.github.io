@@ -10,32 +10,31 @@
     .images {width: 100%;overflow: hidden;font-size: 0}
     .images > img {display: inline-block;box-sizing:border-box;border: 2px solid #ffffff;}
     .images > img:hover {transform: scale(2);position: relative;z-index: 999;transition: all 3s}
-    .loading {visibility: hidden;text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0;transition: all .5s;}
-    .loading-show {visibility: visible}
-    ::-webkit-scrollbar {width: 0}
+    /*::-webkit-scrollbar {width: 0}*/
   </style>
 </head>
 <body>
   <div class="images"></div>
-  <p class="loading">加载中 ...</p>
+  <script src="./loading.js"></script>
   <script>
 
     var page_index, //ajax获取数据的页数
         storage_img_width, //存储暂存区的图片在初始化高度下的宽度，用来判断是否容纳的下下一个元素
         img_storage_array, //存储在暂存区的图片元素  tips:暂存区---用来存储当前正在渲染的一行的元素
-        img_initial_height; //图片初始化高度 
+        img_initial_height, //图片初始化高度 
+        loading_state;
 
     window.onload = function() {
       initialArgs();
-      getImages(50, page_index++);
+      getImages(100, page_index++);
     }
 
     window.onscroll = function() {
       var doc = document.documentElement;
       var height = document.querySelector('.images').clientHeight;
       var position = doc.clientHeight + doc.scrollTop;
-      if (position >= height * 0.75) {
-          getImages(50, page_index++);
+      if (position >= height && !loading_state) {
+          getImages(100, page_index++);
       }
     }
 
@@ -63,13 +62,15 @@
     function getImages( number, index ) {
       var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
-      loading.classList.add('loading-show');
+      dmLoading.show();
+      loading_state = true;
       fetch(url).then(res => res.json()).then(res => {
-        loading.classList.remove('loading-show');
+        dmLoading.hide();
+        loading_state = false;
         res.results.map(info => {
           renderImage(info.url, appendImg);
         })
-      })
+      }).catch(err => {alert(err);dmLoading.hide();loading_state = false;})
     }
 
     function renderImage(url, callback) {

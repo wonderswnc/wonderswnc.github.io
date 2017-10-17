@@ -11,12 +11,11 @@
     .images > img {border-radius: 4px;box-shadow: 0 0 6px 2px rgba(0,0,0,.5);position: absolute;border: 1px solid #ffffff}
     .images > img:hover {transform: scale(2);z-index: 999;transition: all 2s}
     .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0;visibility: hidden;transition: all 1s}
-    .loading-show {visibility: visible}
   </style>
 </head>
 <body>
   <div class="images"></div>
-  <p class="loading">加载中 ...</p>
+  <script src="./loading.js"></script>
   <script>
 
     var index_object, //记录每一行的高度 tips:加了间距
@@ -71,9 +70,9 @@
     function getImages( number, index ) {
       var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
-      loading.classList.add('loading-show');
+      dmLoading.show();
       fetch(url).then(res => res.json()).then(res => {
-        loading.classList.remove('loading-show');
+        dmLoading.hide();
         res.results.map(info => {
           renderImage(info.url, appendImg); //传入图片的url 以及 图片加载好后的处理函数
         })
