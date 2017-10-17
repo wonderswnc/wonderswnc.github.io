@@ -10,7 +10,6 @@
     .images {position: relative;margin: 0 5%;width: 90%;}
     .images > img {border-radius: 4px;box-shadow: 0 0 6px 2px rgba(0,0,0,.5);position: absolute;border: 1px solid #ffffff}
     .images > img:hover {transform: scale(2);z-index: 999;transition: all 2s}
-    .loading {text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0;visibility: hidden;transition: all 1s}
   </style>
 </head>
 <body>
@@ -61,8 +60,8 @@
     window.onscroll = function() {
       var doc = document.documentElement;
       var position = doc.clientHeight + doc.scrollTop;
-      if (position >= Math.min.apply(null, Object.values(index_object))) {
-          getImages(20, page_index++);
+      if (position >= Math.max.apply(null, Object.values(index_object)) * 0.95) {
+          getImages(50, page_index++);
       }
     }
 
