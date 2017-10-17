@@ -1,6 +1,6 @@
 (function() {
   var _dmLoading = {
-    _loading: null,
+    _loadingElement: null,
     _loadingMark: false,
     init: function() {
       var template = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.6)">\
@@ -9,20 +9,19 @@
                       ';
       
       var loadingElement = document.createElement('div');
-      loadingElement.setAttribute('id', 'loading-element');
       loadingElement.innerHTML = template;
-      _dmLoading._loading =loadingElement;
+      _dmLoading._loadingElement =loadingElement;
     },
     show: function() {
-      if (_dmLoading._loading === null){
+      if (_dmLoading._loadingElement === null){
         _dmLoading.init();
       }
-      document.body.appendChild(_dmLoading._loading);
+      document.body.appendChild(_dmLoading._loadingElement);
       _dmLoading._loadingMark = true;
     },
     hide: function() {
       if (_dmLoading._loadingMark) {
-        document.body.removeChild(_dmLoading._loading);
+        document.body.removeChild(_dmLoading._loadingElement);
         _dmLoading._loadingMark = false;
       }
     }

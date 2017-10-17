@@ -33,7 +33,7 @@
       var doc = document.documentElement;
       var height = document.querySelector('.images').clientHeight;
       var position = doc.clientHeight + doc.scrollTop;
-      if (position >= height && !loading_state) {
+      if (position >= height * 0.95 && !loading_state) {
           getImages(100, page_index++);
       }
     }
@@ -42,7 +42,7 @@
       if (/Mobile/.test(window.navigator.userAgent))
         return false;
       initialArgs();
-      setTimeout(() => getImages(50, page_index++), 200);
+      setTimeout(() => getImages(100, page_index++), 200);
     }
 
 
