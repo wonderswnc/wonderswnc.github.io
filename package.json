@@ -1,0 +1,25 @@
+{
+  "name": "wonderswnc.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cheerio.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wonderswnc/wonderswnc.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wonderswnc/wonderswnc.github.io/issues"
+  },
+  "homepage": "https://github.com/wonderswnc/wonderswnc.github.io#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "request": "^2.83.0",
+    "superagent": "^3.6.3"
+  }
+}
