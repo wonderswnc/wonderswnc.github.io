@@ -8,7 +8,7 @@
   <style>
     html {background-color: rgba(0,0,0,.2)}
     .images {width: 100%;overflow: hidden;font-size: 0}
-    .images > img {display: inline-block;border-radius: 4px;box-shadow: 0 0 6px 2px rgba(0,0,0,.5);transform: scale(.95)}
+    .images > img {display: inline-block;box-sizing:border-box;border: 2px solid #ffffff;}
     .images > img:hover {transform: scale(2);position: relative;z-index: 999;transition: all 3s}
     .loading {visibility: hidden;text-align: center;position: fixed;bottom: 0;left: 0;right: 0;line-height: 50px;color: #ffffff;background-color: rgba(0,0,0,.5);margin: 0;transition: all .5s;}
     .loading-show {visibility: visible}
@@ -86,7 +86,9 @@
       var imgWidth = img_initial_height * info.width / info.height; //计算当前图片在初始化高度下的宽度
       if (allImgWidth + imgWidth > wrapperWidth) { //判断正在等待渲染的一行是否能够容纳下当前元素
         img_storage_array.map((img, index) => { //容纳不下，将暂存区元素渲染到页面上
-          img.style.width = (wrapperWidth * storage_img_width[index] / allImgWidth) + 'px';
+          var img_width = wrapperWidth * storage_img_width[index] / allImgWidth;
+          img.style.width = Number.parseInt(img_width) + 'px';
+          img.style.height = (img_initial_height * img_width / storage_img_width[index] | 0) + 'px';
           images.appendChild(img);
         })
         img_storage_array = [target]; //清空暂存区元素，将当前元素放入其中
