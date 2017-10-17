@@ -38,6 +38,8 @@
     * 根据不同设备宽度计算图片宽度和行数
     */
     function initialArgs() {
+      if (/Mobile/.test(window.navigator.userAgent))
+        return false;
       var parent = document.querySelector('.images');
       if (parent.offsetWidth < 880) {
         img_initial_width = ((parent.offsetWidth - 40) / 3) | 0;
