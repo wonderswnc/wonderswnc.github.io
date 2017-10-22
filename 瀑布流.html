@@ -69,9 +69,9 @@
     function getImages( number, index ) {
       var url = `https://gank.io/api/data/福利/${number}/${index}`;
       var loading = document.querySelector('.loading');
-      dmLoading.show();
+      // dmLoading.show();
       fetch(url).then(res => res.json()).then(res => {
-        dmLoading.hide();
+        // dmLoading.hide();
         res.results.map(info => {
           renderImage(info.url, appendImg); //传入图片的url 以及 图片加载好后的处理函数
         })

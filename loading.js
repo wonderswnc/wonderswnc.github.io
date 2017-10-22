@@ -21,12 +21,13 @@
         _loading.init();
       }
       document.body.appendChild(_loading._element);
-      _loading.animation();
+      // _loading.animation();
       _loading._loadingMark = true;
     },
     hide: function() {
       if (_loading._loadingMark) {
-        _loading.animation();
+        document.body.removeChild(_loading._element);
+        // _loading.animation();
         _loading._loadingMark = false;
       }
     },
