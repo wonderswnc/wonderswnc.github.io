@@ -20,4 +20,5 @@ function range(len = 10) {
   return arr;
 }
 
-sortL(range().map(item => (item * Math.random() * 10 | 0)))
+//测试用例
+sortL(range().map(item => (item * Math.random() * 10 | 0))) 
