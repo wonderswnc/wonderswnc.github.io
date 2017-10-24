@@ -6,6 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Gank.io 每日更新</title>
   <style>
+    ul {padding: 0;list-style: none;}
+    li { 
+      margin: 20px 0;
+    }
     html {
       background-color: #eee;
     }
@@ -14,6 +18,9 @@
     }
     img {
       border-radius: 4px;
+      width: 20%;
+    }
+    p > img {
       width: 100%;
     }
     .content-list {
@@ -95,6 +102,7 @@
     function bindAction() {
       document.querySelector('.turn-icon-left').addEventListener('click', function() {
         if (index === 1) {
+          alert('前面没有啦!');
           return false;
         }
         getInfo(--index);
@@ -107,11 +115,14 @@
       var parent =document.querySelector('.content-list');
       dmLoading.show();
       fetch(`https://gank.io/api/history/content/${content}/${index}`).then(res => res.json()).then(res => {
-        res.results.map(info => renderInfo(info.title, info.content, parent));
+        console.log(res);
+        res.error ? alert('加载出错啦!') : res.results.map(info => renderInfo(info.title, info.content, info.updated_at, parent));
       })
     }
 
-    function renderInfo(title, content, target) {
+    function renderInfo(title, content, date, target) {
+      var dateArray = date.match(/(\d{4})-(\d{2})-(\d{2})/);
+      var title = index === 1 ? title : `${dateArray[1]}年${dateArray[2]}月${dateArray[3]}日 力推: ${title.replace('今日力推：', '')}`;
        target.innerHTML = `<div class="content-list-item">
                               <h2>${title}</h2>
                               <div class="item-content">
