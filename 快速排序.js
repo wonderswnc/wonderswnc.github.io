@@ -9,8 +9,10 @@ function sortL(arr) {
   for (let i = 0;i < arr.length;i ++) {
     arr[i] <= currentValue ? left.push(arr[i]) : right.push(arr[i]);
   }
-  return [...sortL(left),[currentValue], ...sortL(right)];
+  return [...sortL(left), currentValue, ...sortL(right)];
 }
+
+
 
 function range(len = 10) {
   let i = 0,arr = [];

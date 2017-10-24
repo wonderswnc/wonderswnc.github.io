@@ -4,7 +4,7 @@
     _loadingContent: null,
     _loadingMark: false,
     init: function() {
-      var template = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(255,255,255,0);transtion:all .5s" id="loading-content">\
+      var template = '<div style="position:fixed;top:0;left:0;right:0;bottom:0;background-color:rgba(0,0,0,.2)" id="loading-content">\
                         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:60px;text-align:center;font-size:10px;color:#888">\
                           <img src="./loading.gif" alt="loading" style="width: 60%;">\
                           <p>努力加载中</p>\

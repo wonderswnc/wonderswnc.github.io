@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Gank.io 每日更新</title>
+  <style>
+    html {
+      background-color: #eee;
+    }
+    div {
+      box-sizing: border-box;
+    }
+    img {
+      border-radius: 4px;
+      width: 100%;
+    }
+    .content-list {
+      width: 60%;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+    .content-list-item {
+      box-shadow: 0 0 5px 5px #ddd;
+      padding: 20px;
+    }
+    .to {
+      position: fixed;
+      width: 20%;
+      transition: all .2s;
+    }
+    /*.to:hover {
+      background-color: rgba(0,0,0,.1);
+    }*/
+    .to:hover .turn-icon {
+      visibility: visible;
+    }
+    .to-left {
+      left: 0;
+      bottom: 0;
+      top: 0;
+    }
+    .to-right {
+      right: 0;
+      bottom: 0;
+      top: 0;
+    }
+    .turn-icon {
+      position: absolute;
+      visibility: hidden;
+      transition: all .2s;
+      width: 60px;
+      height: 60px;
+      border: 10px solid transparent;
+      border-right-color: #ddd;
+      border-top-color: #ddd;
+    }
+    .turn-icon-right {
+      right: 100px;
+      top: 45%;
+      transform: rotate(45deg);
+      cursor: pointer;
+    }
+    .turn-icon-right:hover {
+      transform: rotate(45deg) scale(1.2);
+    }
+    .turn-icon-left {
+      left: 100px;
+      top: 45%;
+      transform: rotate(-135deg);
+      cursor: pointer;
+    }
+    .turn-icon-left:hover {
+      transform: rotate(-135deg) scale(1.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="content-list">
+  </div>
+  <div class="to to-left">
+    <div class="turn-icon turn-icon-left"></div>
+  </div>
+  <div class="to to-right">
+    <div class="turn-icon turn-icon-right"></div>
+  </div>
+  <script src="./loading.js"></script>
+  <script>
+    var index = 1;
+    window.onload = function() {
+      bindAction();
+      getInfo(index);
+    }
+    function bindAction() {
+      document.querySelector('.turn-icon-left').addEventListener('click', function() {
+        if (index === 1) {
+          return false;
+        }
+        getInfo(--index);
+      });
+      document.querySelector('.turn-icon-right').addEventListener('click', function() {
+        getInfo(++index);
+      })
+    }
+    function getInfo(index, content = 1) {
+      var parent =document.querySelector('.content-list');
+      dmLoading.show();
+      fetch(`https://gank.io/api/history/content/${content}/${index}`).then(res => res.json()).then(res => {
+        res.results.map(info => renderInfo(info.title, info.content, parent));
+      })
+    }
+
+    function renderInfo(title, content, target) {
+       target.innerHTML = `<div class="content-list-item">
+                              <h2>${title}</h2>
+                              <div class="item-content">
+                                ${content}
+                              </div>
+                            </div>`;
+      dmLoading.hide();
+    }
+  </script>
+</body>
+</html>
