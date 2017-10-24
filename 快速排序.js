@@ -21,4 +21,4 @@ function range(len = 10) {
 }
 
 //测试用例
-sortL(range().map(item => (item * Math.random() * 10 | 0))) 
+console.log(sortL(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0))));
