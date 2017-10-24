@@ -1,0 +1,41 @@
+const webpack = require('webpack')
+      path = require('path')
+      Dashboard = require('webpack-dashboard'),
+      DashboardPlugin = require('webpack-dashboard/plugin'),
+      dashboard = new Dashboard(),
+      HtmlWebpackPlugin = require('html-webpack-plugin'),
+      ROOT_PATH = path.resolve(__dirname),
+      SRC_PATH = path.resolve(__dirname, 'src');
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    path: path.resolve(ROOT_PATH, 'dist'),
+    filename: 'js/[name]-[hash].js'
+  },
+  resolve: {
+    extensions: ['.js','.json','.less','.jsx']
+  },
+  module: {
+    rules : [
+      {
+        test: /.jsx?$/,
+        use: 'babel-loader',
+        include: path.join(__dirname, 'src')
+      }, {
+        test: /.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
+      }
+    ]
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development'),
+      '__DEV__': true
+    }),
+    new DashboardPlugin(dashboard.setData),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'index.html')
+    })
+  ]
+}
