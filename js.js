@@ -10,4 +10,4 @@ function closure() {
 closure();
 function consoleL(i) {
   console.log(i)
-}
+};
