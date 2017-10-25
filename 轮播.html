@@ -151,18 +151,19 @@
 
     function dispatchAction(value) {
       var left_now = Number.parseInt(wrapper.style.left);
-      if (value === 'prev') {
-        if (left_now === 0) {
-          return false;
-        }
-        changePosition(left_now + 800);
-      } else if (value === 'next') {
-        if (left_now === -(roasting_number - 1) * 800) {
-          return false;
-        }
-        changePosition(left_now - 800)
-      } else {
-        changePosition(-value * 800)
+      switch(value) {
+        case 'prev':
+          if (left_now === 0) {
+            return false;
+          }
+          changePosition(left_now + 800);break;
+        case 'next':
+          if (left_now === -(roasting_number - 1) * 800) {
+            return false;
+          }
+          changePosition(left_now - 800);break;
+        default:
+          changePosition(-value * 800)
       }
     }
 
