@@ -7,12 +7,14 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="./comment.css">
   <style>
+    html{ background: #ddd }
     .roasting {
       width: 800px;
       height: 450px;
       overflow: hidden;
       position: relative;
       margin: 0 auto;
+      box-shadow: 0 0 5px 5px #aaa;
     }
     .roasting-wrapper {
       width: 0;
@@ -44,13 +46,13 @@
       top: 0;
       left: 0;
       bottom: 0;
-      background: linear-gradient(90deg, rgba(0, 0, 0, .3) 0% , rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(90deg, rgba(0, 0, 0, .5) 0% , rgba(0, 0, 0, 0) 100%);
     }
     .ctrl-next {
       top: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(-90deg,rgba(0, 0, 0, .3) 0% , rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(-90deg,rgba(0, 0, 0, .5) 0% , rgba(0, 0, 0, 0) 100%);
     }
     .tab {
       height: 20px;
@@ -81,22 +83,19 @@
   <div class="roasting">
     <div class="roasting-wrapper">
       <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
+        <img src="./images/roasting_img_1.jpg" alt="好看的图片">
       </div>
       <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
+        <img src="./images/roasting_img_2.jpg" alt="好看的图片">
       </div>
       <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
+        <img src="./images/roasting_img_3.jpg" alt="好看的图片">
       </div>
       <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
+        <img src="./images/roasting_img_4.jpg" alt="好看的图片">
       </div>
       <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
-      </div>
-      <div class="roasting-wrapper-item">
-        <img src="./cat.jpg" alt="喵喵">
+        <img src="./images/roasting_img_5.jpg" alt="好看的图片">
       </div>
     </div>
     <div class="ctrl ctrl-prev">
@@ -106,7 +105,6 @@
       <div class="turn-icon turn-icon-right"></div>
     </div>
     <div class="tab">
-      <div class="tab-item"></div>
       <div class="tab-item"></div>
       <div class="tab-item"></div>
       <div class="tab-item"></div>
@@ -162,7 +160,7 @@
             return false;
           }
           changePosition(left_now - 800);break;
-        default:
+        default :
           changePosition(-value * 800)
       }
     }
