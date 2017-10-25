@@ -118,9 +118,13 @@
     </div>
   </div>
 
+  <script src="./loading.js"></script>
   <script>
-
     var wrapper, roasting_number, tab_item_array;
+
+    document.onreadystatechange = function() {
+      document.readyState === 'complete' ? dmLoading.hide() : dmLoading.show();
+    }
 
     window.onload = function() {
       wrapper = document.querySelector('.roasting-wrapper');
@@ -172,7 +176,6 @@
       wrapper.style.transitionDuration = '300ms';
       wrapper.style.left = left_offset + 'px';
       var current_index = (left_offset) / -800 - 1;
-      console.log(wrapper.style.left, current_index)
       if (resetDuration) {
         setTimeout(function() {
           wrapper.style.transitionDuration = '0ms';
