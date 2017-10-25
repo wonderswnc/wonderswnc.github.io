@@ -17,10 +17,9 @@
       box-shadow: 0 0 5px 5px #aaa;
     }
     .roasting-wrapper {
-      width: 0;
       position: absolute;
       overflow-x: hidden;
-      transition: all .5s;
+      transition-duration: 300ms;
     }
     .roasting-wrapper-item {
       width: 800px;
@@ -36,7 +35,7 @@
       position: absolute;
       width: 30%;
       height: 100%;
-      transition: all .2s;
+      transition-duration: 300ms;
       opacity: 0;
     }
     .ctrl:hover {
@@ -83,6 +82,9 @@
   <div class="roasting">
     <div class="roasting-wrapper">
       <div class="roasting-wrapper-item">
+        <img src="./images/roasting_img_5.jpg" alt="好看的图片">
+      </div>
+      <div class="roasting-wrapper-item">
         <img src="./images/roasting_img_1.jpg" alt="好看的图片">
       </div>
       <div class="roasting-wrapper-item">
@@ -96,6 +98,9 @@
       </div>
       <div class="roasting-wrapper-item">
         <img src="./images/roasting_img_5.jpg" alt="好看的图片">
+      </div>
+      <div class="roasting-wrapper-item">
+        <img src="./images/roasting_img_1.jpg" alt="好看的图片">
       </div>
     </div>
     <div class="ctrl ctrl-prev">
@@ -119,15 +124,15 @@
 
     window.onload = function() {
       wrapper = document.querySelector('.roasting-wrapper');
-      roasting_number = document.querySelectorAll('.roasting-wrapper-item').length;
+      roasting_number = document.querySelectorAll('.roasting-wrapper-item').length - 2;
       tab_item_array = document.querySelectorAll('.tab-item');
       initRoasting();
       bindAction();
     }
 
     function initRoasting() {
-      wrapper.style.width = (800 * roasting_number) + 'px';
-      wrapper.style.left = '0px';
+      wrapper.style.width = (800 * (roasting_number + 2)) + 'px';
+      wrapper.style.left = '-800px';
       tab_item_array[0].classList.add('active');
     }
 
@@ -142,7 +147,7 @@
       });
       [].forEach.call(tab_item_array, (tab_item, index) => {
         tab_item.addEventListener('click', function() {
-          dispatchAction(index);
+          dispatchAction(index + 1);
         })
       })
     }
@@ -151,32 +156,37 @@
       var left_now = Number.parseInt(wrapper.style.left);
       switch(value) {
         case 'prev':
-          left_now === 0 ? 
-          changePosition(-(roasting_number - 1) * 800) :
+          left_now === -800 ? 
+          changePosition(left_now + 800, true, -roasting_number * 800) :
           changePosition(left_now + 800);break;
         case 'next':
-          left_now === -(roasting_number - 1) * 800 ?
-          changePosition(0) :
+          left_now === -roasting_number * 800 ?
+          changePosition(left_now - 800, true, -800):
           changePosition(left_now - 800);break;
         default :
           changePosition(-value * 800)
       }
     }
 
-    function changePosition(left_offset) {
+    function changePosition(left_offset, resetDuration = false, current_offset) {
+      wrapper.style.transitionDuration = '300ms';
       wrapper.style.left = left_offset + 'px';
-      var current_index = (left_offset * -1) / 800;
+      var current_index = (left_offset) / -800 - 1;
+      console.log(wrapper.style.left, current_index)
+      if (resetDuration) {
+        setTimeout(function() {
+          wrapper.style.transitionDuration = '0ms';
+          wrapper.style.left = current_offset + 'px';
+        }, 300);
+        current_index = current_offset / -800 - 1;
+      }
       [].forEach.call(tab_item_array, (tab_item, index) => {
         index === current_index ? 
         tab_item.classList.add('active') : tab_item.classList.remove('active');
       })
     }
     
-    window.onreadystatechange = function() {
-      console.log(document.readyState);
-      if (document.readyState === 'complete') {
-        alert('加载完成！');
-      }
+    document.onreadystatechange = function() {
     }
   </script>
 </body>
