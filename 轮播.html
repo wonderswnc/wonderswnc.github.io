@@ -151,14 +151,12 @@
       var left_now = Number.parseInt(wrapper.style.left);
       switch(value) {
         case 'prev':
-          if (left_now === 0) {
-            return false;
-          }
+          left_now === 0 ? 
+          changePosition(-(roasting_number - 1) * 800) :
           changePosition(left_now + 800);break;
         case 'next':
-          if (left_now === -(roasting_number - 1) * 800) {
-            return false;
-          }
+          left_now === -(roasting_number - 1) * 800 ?
+          changePosition(0) :
           changePosition(left_now - 800);break;
         default :
           changePosition(-value * 800)
@@ -172,6 +170,13 @@
         index === current_index ? 
         tab_item.classList.add('active') : tab_item.classList.remove('active');
       })
+    }
+    
+    window.onreadystatechange = function() {
+      console.log(document.readyState);
+      if (document.readyState === 'complete') {
+        alert('加载完成！');
+      }
     }
   </script>
 </body>
