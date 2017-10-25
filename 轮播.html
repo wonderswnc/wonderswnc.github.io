@@ -121,11 +121,7 @@
   <script src="./loading.js"></script>
   <script>
     var wrapper, roasting_number, tab_item_array;
-
-    document.onreadystatechange = function() {
-      document.readyState === 'complete' ? dmLoading.hide() : dmLoading.show();
-    }
-
+    
     window.onload = function() {
       wrapper = document.querySelector('.roasting-wrapper');
       roasting_number = document.querySelectorAll('.roasting-wrapper-item').length - 2;
