@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calendar</title>
+  <style>
+    .calendar {
+      width: 350px;
+    }
+    .calendar th {
+      width: 50px;
+    }
+    .calendar td[data-date] {
+      text-align: center;
+      cursor: pointer;
+    }
+    .cld-icon {
+      cursor: pointer;
+    }
+    .active {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!--<div>
+    <input type="text" name="year"/>
+    <select class="month">
+      <option value="1">1月</option>
+      <option value="2">2月</option>
+      <option value="3">3月</option>
+      <option value="4">4月</option>
+      <option value="5">5月</option>
+      <option value="6">6月</option>
+      <option value="7">7月</option>
+      <option value="8">8月</option>
+      <option value="9">9月</option>
+      <option value="10">10月</option>
+      <option value="11">11月</option>
+      <option value="12">12月</option>
+    </select>
+    <select class="day">
+      
+    </select>
+  </div>-->
+  <div class="calendar">
+    <table>
+      <thead>
+        <tr>
+          <th class="cld-icon prev-month"> < </th>
+          <th colspan="5" class="date_month"></th>
+          <th class="cld-icon next-month"> > </th>
+        </tr>
+        <tr>
+          <th>Su</th>
+          <th>Mo</th>
+          <th>Tu</th>
+          <th>We</th>
+          <th>Th</th>
+          <th>Fr</th>
+          <th>Sa</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <p class="active_date"></p>
+  </div>
+  <script src="./util.js"></script>
+  <script>
+    var dateMap = range(31,1);
+    var WeekIndexMap = {'Sun': 0,'Mon': 1,'Tue': 2,'Wed': 3, 'Thu': 4, 'Fri': 5, 'Sat': 6}
+    var monthMap = [31,28,31,30,31,30,31,31,30,31,30,31];
+    var nowDateFormatString;
+    window.onload = function() {
+      nowDateFormatString = new Date().toLocaleDateString();
+      bindAction();
+      renderDate(nowDateFormatString, true);
+    }
+
+    function bindAction() {
+      var dateList = document.querySelectorAll('tbody td');
+      document.querySelector('tbody').addEventListener('click', function(e) {
+        var ele = e.target;
+        while(ele.nodeName !== 'TD') {
+          ele = ele.parentNode;
+        }
+        if (typeof ele.dataset['date'] === 'undefined') {
+          return false;
+        }
+        chooseDate('', ele);
+      });
+      document.querySelector('.prev-month').addEventListener('click', () => {
+        var formatDateArray = nowDateFormatString.split('/');
+        if (+formatDateArray[1] - 1 > 0) {
+          formatDateArray[1] = +formatDateArray[1] - 1;
+        } else {
+          formatDateArray[0] = +formatDateArray[0] - 1;
+          formatDateArray[1] = 12;
+        }
+        renderDate(changeGolbalDateString(formatDateArray.join('/')));
+      })
+      document.querySelector('.next-month').addEventListener('click', () => {
+        var formatDateArray = nowDateFormatString.split('/');
+        if (+formatDateArray[1] + 1 <= 12) {
+          formatDateArray[1] = +formatDateArray[1] + 1;
+        } else {
+          formatDateArray[0] = +formatDateArray[0] + 1;
+          formatDateArray[1] = 1;
+        }
+        renderDate(changeGolbalDateString(formatDateArray.join('/')));
+      })
+    }
+
+    function changeGolbalDateString(formatDateString) {
+      nowDateFormatString = formatDateString;
+      return nowDateFormatString;
+    }
+
+    function renderDate(dateString, mark = false) {
+      var dateArray = dateString.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})/);
+      if ((dateArray[1] % 4 === 0 && dateArray[1] % 100 !== 0)||(dateArray[1] % 400 === 0)) {
+        monthMap[1] = 29;
+      } else {
+        monthMap[1] = 28;
+      }
+      renderDateHtml(getCalendarHmtl(dateArray[2], dateArray[1]), dateArray[1], dateArray[2]);
+      mark ? chooseDate(dateArray.slice(1).join('/')) : '';
+    }
+
+    function chooseDate(dateString, target = null) {
+      var dateList = document.querySelectorAll('tbody td');
+      [].forEach.call(dateList, dateEle => dateEle.classList.remove('active'));
+      if (target === null)  {
+        document.querySelector('td[data-date="'+ dateString +'"]').classList.add('active');
+        document.querySelector('p').innerHTML = `你选中的时间是：${document.querySelector('td[data-date="'+ dateString +'"]').dataset['date']}`;
+      } else { 
+        target.classList.add('active');
+        document.querySelector('p').innerHTML = `你选中的时间是：${target.dataset['date']}`;
+      }
+    }
+
+    function renderDateHtml(html, year, mouth) {
+      document.querySelector('tbody').innerHTML = html;
+      document.querySelector('.date_month').innerText = `${year}年${mouth}月`;
+    }
+
+    function getCalendarHmtl(month = 10, year = 2017) {
+      var currentDate = new Date(new Date(new Date(new Date().setFullYear(year)).setMonth(month - 1)).setDate(1));
+      var thisMouthStartWeek = currentDate.toString().match(/^\w{3}/)[0];
+      var timeMap = [...dateMap].slice(0, monthMap[month - 1]);
+      var colNumber = Math.ceil((WeekIndexMap[thisMouthStartWeek] + timeMap.length) / 7);
+      var html = '';
+      var arr = range(7);
+      timeMap.unshift(...new Array(WeekIndexMap[thisMouthStartWeek]).fill(''))
+      timeMap.push(...new Array(colNumber * 7 - monthMap[month - 1] - WeekIndexMap[thisMouthStartWeek]).fill(''));
+      for (let i = 0;i < colNumber;i ++) {
+        html += `<tr>
+                  ${arr.map((item, index) => 
+                    `<td ${timeMap[i * 7 + index] === '' ? '' : `data-date='${year}/${month}/${timeMap[i * 7 + index]}'`} >
+                      ${timeMap[i * 7 + index]}
+                    </td>`)
+                    .join('')}
+                 </tr>`
+      }
+      return html;
+    }
+  </script>
+</body>
+</html>
