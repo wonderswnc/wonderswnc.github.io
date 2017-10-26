@@ -8,13 +8,28 @@
   <style>
     .calendar {
       width: 350px;
+      margin: 100px auto;
+    }
+    .calendar table {
+      border-collapse: collapse;
+      border: 1px solid #ddd;
+      box-shadow: 0 0 5px 5px #ddd;
+    }
+    .calendar thead {
+      border-bottom: 1px solid #aaa;
+    }
+    .calendar thead > tr:nth-of-type(1) > th {
+      background-color: #fff;
     }
     .calendar th {
       width: 50px;
+      line-height: 30px;
+      background-color: #ddd;
     }
     .calendar td[data-date] {
       text-align: center;
       cursor: pointer;
+      line-height: 30px;
     }
     .cld-icon {
       cursor: pointer;
