@@ -27,8 +27,17 @@
         <li><a href="./markdown.html">Markdown</a></li>
         <li><a href="./每日一更.html">Gank.io 每日一更</a></li>
         <li><a href="./轮播.html">轮播</a></li>
-        <li><a href="./Calendar.html">一起不完善的日历</a></li>
+        <li><a href="./Calendar.html">一个不完善的日历</a></li>
     </ul>
     <script src='./loading.js'></script>
+    <script>
+        window.onload = function() {
+            if (/Mobile/.test(window.navigator.userAgent)) {
+                var li = document.createElement('li');
+                li.innerHTML = `<a href="./木桶布局.html">木桶布局</a>`;
+                document.querySelector('ul').appendChild(li);
+            }
+        }
+    </script>
 </body>
 </html>
