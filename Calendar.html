@@ -141,7 +141,7 @@
       } else {
         monthMap[1] = 28;
       }
-      renderDateHtml(getCalendarHmtl(dateArray[2], dateArray[1]), dateArray[1], dateArray[2]);
+      renderDateHtml(getCalendarHtml(dateArray[2], dateArray[1]), dateArray[1], dateArray[2]);
       mark ? chooseDate(dateArray.slice(1).join('/')) : '';
     }
 
@@ -162,7 +162,7 @@
       document.querySelector('.date_month').innerText = `${year}年${mouth}月`;
     }
 
-    function getCalendarHmtl(month = 10, year = 2017) {
+    function getCalendarHtml(month = 10, year = 2017) {
       var currentDate = new Date(new Date(new Date(new Date().setFullYear(year)).setMonth(month - 1)).setDate(1));
       var thisMouthStartWeek = currentDate.toString().match(/^\w{3}/)[0];
       var timeMap = [...dateMap].slice(0, monthMap[month - 1]);
