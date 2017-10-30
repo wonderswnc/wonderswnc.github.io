@@ -24,3 +24,18 @@ function range(len = 10) {
 
 //测试用例
 console.log(sortL(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0))));
+
+Array.prototype.insertSort = function() {
+  const len = this.length;
+  for (let i = 0;i < len - 1; i ++) {
+    for (let j = i + 1;j < len; j ++) {
+      if (this[i] > this[j]) {
+        _value = this[i];
+        this[i] = this[j];
+        this[j] = _value;
+      }
+    }
+  }
+  return this;
+}
+console.log(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0)).insertSort());
