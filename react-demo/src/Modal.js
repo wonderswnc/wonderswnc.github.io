@@ -9,9 +9,9 @@ class Modal extends Component {
     const { showModal, head, children, onCancel } = this.props;
 
     return (
-      <div className={`modal ${showModal ? 'modal-show' : ""}`}>
+      <div className={`modal ${showModal ? 'modal-show' : ''}`}>
         <div className="modal--mask"></div>
-        <div className="modal-detail">
+        <div className={`modal-detail ${showModal ? 'modal-detail-show' : ''}`}>
           <div className="modal-close" onClick={() => onCancel()}><span>&times;</span></div>
           <div className="modal-head">
             <h2>{ head }</h2>

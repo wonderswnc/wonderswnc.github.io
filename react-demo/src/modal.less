@@ -22,9 +22,13 @@
     position: fixed;
     top: 20%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scale(0);
     padding: 20px;
     border-radius: 4px;
+    transition: transform .1s ease-in-out;
+  }
+  &-detail-show {
+    transform: translateX(-50%) scale(1);
   }
   &-close {
     position: absolute;
