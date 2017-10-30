@@ -130,6 +130,17 @@
       bindAction();
     }
 
+    function throttle(callback, delay = 300) {
+      var time = 0;
+      return function () {
+        var date_now = new Date().valueOf();
+        if (date_now > time) {
+          time = date_now + delay;
+          callback.apply(this, arguments);
+        }
+      }
+    }
+
     function initRoasting() {
       wrapper.style.width = (800 * (roasting_number + 2)) + 'px';
       wrapper.style.left = '-800px';
@@ -139,16 +150,10 @@
     function bindAction() {
       var prev_btn = document.querySelector('.turn-icon-left'),
           next_btn = document.querySelector('.turn-icon-right');
-      prev_btn.addEventListener('click', function() {
-        dispatchAction('prev');
-      });
-      next_btn.addEventListener('click', function() {
-        dispatchAction('next');
-      });
+      prev_btn.addEventListener('click', throttle(() => dispatchAction('prev')));
+      next_btn.addEventListener('click', throttle(() => dispatchAction('next')));
       [].forEach.call(tab_item_array, (tab_item, index) => {
-        tab_item.addEventListener('click', function() {
-          dispatchAction(index + 1);
-        })
+        tab_item.addEventListener('click', throttle(() => dispatchAction(index + 1)))
       })
     }
 

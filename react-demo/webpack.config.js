@@ -8,7 +8,7 @@ const webpack = require('webpack')
       SRC_PATH = path.resolve(__dirname, 'src');
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/portals.js",
   output: {
     path: path.resolve(ROOT_PATH, 'dist'),
     filename: 'js/[name]-[hash].js'
@@ -29,10 +29,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('development'),
-      '__DEV__': true
-    }),
     new DashboardPlugin(dashboard.setData),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'index.html')

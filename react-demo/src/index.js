@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { render } from 'react-dom';
 
 const List = ({ list }) => {
-  console.log(list);
   return (
     <ul>
       {
@@ -12,6 +11,11 @@ const List = ({ list }) => {
       }
     </ul>
   )
+}
+
+const Hel = ({data}) => {
+  console.log('i am refresh ui!');
+  return <h2>{data}</h2>
 }
 
 class ErrorTitle extends Component {
@@ -31,7 +35,6 @@ class ErrorTitle extends Component {
   }
 
   render() {
-    console.log(this.state)
     if (this.state.error) {
       return <h2>Oops! you app has a problem!</h2>
     }
@@ -63,7 +66,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
           <input type="text" onFocus={this.bindFcuntion} onChange={event => this.changeUContent(event.target.value)}/>
@@ -75,7 +77,35 @@ class App extends Component {
     )
   }
 };
+
+class TestState extends PureComponent {
+
+  state = {
+    otherState: 'look at me !',
+    state1: {
+      state2: {
+        state3: 'oh, you get it!'
+      }
+    }
+  }
+
+  changeStateHandle = value => {
+    this.setState(({state1:{state2:{state3: data}}}) => ({state1:{state2:{state3: value}}}))
+  }
+
+  render() {
+    console.log(this.state);
+    return (
+      <div>
+        <Hel data={this.state.otherState}/>
+        <h2>{this.state.state1.state2.state3}</h2>
+        <input type="text" onChange={e => this.changeStateHandle(e.target.value)}/>
+      </div>
+    )
+  }
+
+}
 render(
-  <App />,
+  <TestState />,
   document.getElementById('root')
 );
