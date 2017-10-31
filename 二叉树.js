@@ -26,14 +26,23 @@ class BinaryTree {
       if (root_node.right === null) {
         root_node.right = next_node;
       } else {
-        this._find(root_node.right, next_node);
+        this._find_insert(root_node.right, next_node);
       }
     } else {
       if (root_node.left === null) {
         root_node.left = next_node;
       } else {
-        this._find(root_node.left, next_node);
+        this._find_insert(root_node.left, next_node);
       }
+    }
+  }
+
+  inOrder(node) {
+    console.log(node);
+    if (node !== null) {
+      this.inOrder(node.left)
+      console.log(node.value);
+      this.inOrder(node.right);
     }
   }
 }
@@ -47,4 +56,9 @@ function testBinaryTree(num = 20) {
   return binaryTree;
 }
 
+function testBinarySort(arr) {
+  var binaryTree = new BinaryTree();
+  arr.forEach(item => binaryTree.insert(item));
+  return binaryTree.inOrder(binaryTree.root);
+}
 window.BinaryTree = BinaryTree;

@@ -29,11 +29,12 @@
         <li><a href="./轮播.html">轮播</a></li>
         <li><a href="./Calendar.html">一个不完善的日历</a></li>
         <li><a href="./react-demo/dist/index.html">一个小小模态框</a></li>
+        <li>打开console有几个小小测试API</li>
     </ul>
     <script src='./loading.js'></script>
     <script src="./链表.js"></script>
     <script src="./订阅模式.js"></script>
-    <script src="./segmengfaultStudyNote.js"></script>
+    <!--<script src="./segmengfaultStudyNote.js"></script>-->
     <script src="./二叉树.js"></script>
     <script>
         window.onload = function() {
@@ -42,6 +43,14 @@
                 li.innerHTML = `<a href="./木桶布局.html">木桶布局</a>`;
                 document.querySelector('ul').appendChild(li);
             }
+            var ApiObject = [
+                {name: '订阅模式测试', 测试用例: '输入observal即可看见方法'},
+                {name: '函数节流', 测试用例: '在轮播里面有用到哦, throttle'},
+                {name: '二叉树', 测试用例: 'testBinaryTree(元素个数)'},
+                {name: '快速排序', 测试用例: 'testQuickSort()'},
+                {name: '链表', 测试用例: 'testNodeList()'}
+            ];
+            console.table(ApiObject)
         }
     </script>
 </body>

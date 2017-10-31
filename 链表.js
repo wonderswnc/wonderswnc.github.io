@@ -62,5 +62,5 @@ function testNodeList() {
   for (let i = 0;i < 10;i ++) {
     list.push(i);
   }
-  list.print();
+  return list;
 }
