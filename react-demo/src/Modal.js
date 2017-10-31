@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import './modal.less';
 
 class Modal extends Component {
-
+  
   render() {
 
     const { showModal, head, children, onCancel } = this.props;

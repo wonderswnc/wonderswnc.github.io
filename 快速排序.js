@@ -12,8 +12,6 @@ function sortL(arr) {
   return [...sortL(left), currentValue, ...sortL(right)];
 }
 
-
-
 function range(len = 10) {
   let i = 0,arr = [];
   while(i < len) {
@@ -23,7 +21,9 @@ function range(len = 10) {
 }
 
 //测试用例
-console.log(sortL(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0))));
+function testQuickSort() {
+  console.log(sortL(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0))));
+}
 
 Array.prototype.insertSort = function() {
   const len = this.length;
@@ -38,4 +38,3 @@ Array.prototype.insertSort = function() {
   }
   return this;
 }
-console.log(range((10 + Math.random() * 90) | 0).map(item => (item * Math.random() * 10 | 0)).insertSort());

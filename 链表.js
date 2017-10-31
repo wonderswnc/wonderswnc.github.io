@@ -57,10 +57,10 @@ class NodeList {
   }
 }
 
-!function test() {
+function testNodeList() {
   var list = new NodeList();
   for (let i = 0;i < 10;i ++) {
     list.push(i);
   }
   list.print();
-}();
+}

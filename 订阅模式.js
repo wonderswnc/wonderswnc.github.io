@@ -63,4 +63,4 @@ function moveoverHandle(tips) {
   console.log(tips, arguments);
 }
 // document.onmousemove = throttle(moveoverHandle);
-document.onmouseover = throttleByTime(moveoverHandle);
+// document.onmouseover = throttleByTime(moveoverHandle);
