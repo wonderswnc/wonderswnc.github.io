@@ -59,11 +59,11 @@ class PictureGallary extends Component {
 
   getOverStyle(isLeft) {
     const style = {};
-    style.top = `${this.getRandom(-150, 800)}px`;
+    style.top = `${this.getRandom(-150, 500)}px`;
     if (isLeft) {
-      style.left = `${this.getRandom(-150, 450)}px`;
+      style.left = `${this.getRandom(-150, 300)}px`;
     } else {
-      style.right = `${this.getRandom(-150, 450)}px`;
+      style.right = `${this.getRandom(-150, 300)}px`;
     }
     style.transform = `rotate(${this.getRandom(-90, 90)}deg)`;
     return style;
@@ -94,7 +94,16 @@ class PictureGallary extends Component {
   }
 
   render() {
-    const { picturePositionArray } = this.state;
+    const { picturePositionArray } = this.state, length = picturePositionArray.length, controlBtnArray  = [];
+
+    for (let i = 0;i < length;i ++) {
+      controlBtnArray.push(
+      <div className={`gallary-tab-item ${this.index === i ? 'active' : ''}`} 
+           onClick={() => this.currentCenterIndex(i)}
+           key={i} ></div>
+      )
+    }
+
     return (
       <div className="gallary">
         {
@@ -105,11 +114,7 @@ class PictureGallary extends Component {
           ))
         }
         <div className="gallary-tab">
-          {
-            this.state.picturePositionArray.map((item, index) => (
-              <div className={`gallary-tab-item ${this.index === index ? 'active' : ''}`} onClick={() => this.currentCenterIndex(index)}></div>
-            ))
-          }
+          { controlBtnArray }
         </div>
       </div>
     )
