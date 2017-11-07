@@ -34,6 +34,7 @@ Array.prototype.insertSort = function() {
         this[i] = this[j];
         this[j] = _value;
       }
+      console.log(this);
     }
   }
   return this;
