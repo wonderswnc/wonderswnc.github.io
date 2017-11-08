@@ -60,23 +60,26 @@
       </div>
     </div>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>-->
+  <script src='./HyperDown.js-master/Parser.js'></script>
   <script>
-    marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        sanitize: false,
-        smartLists: true,
-        smartypants: false
-      });
+    // marked.setOptions({
+    //     renderer: new marked.Renderer(),
+    //     gfm: true,
+    //     tables: true,
+    //     breaks: false,
+    //     pedantic: false,
+    //     sanitize: false,
+    //     smartLists: true,
+    //     smartypants: false
+    //   });
+      var parser = new HyperDown;
+      
       window.onload = function() {
         var input = $('#input');
         input.oninput = function() {
           console.log(input.value);
-          $('.preview-content').innerHTML = marked(`${input.value}`);
+          $('.preview-content').innerHTML = parser.makeHtml(`${input.value}`);
         }
       }
       
