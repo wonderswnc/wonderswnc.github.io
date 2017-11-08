@@ -8,7 +8,7 @@ const webpack = require('webpack')
       SRC_PATH = path.resolve(__dirname, 'src');
 
 module.exports = {
-  entry: "./src/Resume.js",
+  entry: "./src/CountDown.js",
   output: {
     path: path.resolve(ROOT_PATH, 'dist'),
     filename: 'js/[name]-[hash:5].js'
