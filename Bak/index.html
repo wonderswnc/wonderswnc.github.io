@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>小DEMO</title>
+    <style>
+        ul {
+            padding: 0;
+        }
+        ul li {
+            text-align: center;
+        }
+        p::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <p><a  style="float: right" href="https://github.com/wonderswnc/wonderswnc.github.io">我的github</a></p>
+    <ul>
+        <li><a href="./瀑布流.html">瀑布流</a></li>
+        <!--<li><a href="./木桶布局.html">木桶布局</a></li>-->
+        <li><a href="./markdown.html">Markdown</a></li>
+        <li><a href="./每日一更.html">Gank.io 每日一更</a></li>
+        <li><a href="./轮播.html">轮播</a></li>
+        <li><a href="./Calendar.html">一个不完善的日历</a></li>
+        <li><a href="./react-demo/dist/modal.html">一个小小React模态框</a></li>
+        <li><a href="./react-demo/dist/index.html">海报画廊React版</a></li>
+        <li>打开console有几个小小测试API</li>
+    </ul>
+    <script src='./loading.js'></script>
+    <script src="./链表.js"></script>
+    <script src="./订阅模式.js"></script>
+    <!--<script src="./segmengfaultStudyNote.js"></script>-->
+    <script src="./二叉树.js"></script>
+    <script>
+        window.onload = function() {
+            if (/Mobile/.test(window.navigator.userAgent)) {
+                var li = document.createElement('li');
+                li.innerHTML = `<a href="./木桶布局.html">木桶布局</a>`;
+                document.querySelector('ul').appendChild(li);
+            }
+            var ApiObject = [
+                {name: '订阅模式测试', 测试用例: '输入observal即可看见方法', url: './订阅模式.js'},
+                {name: '函数节流', 测试用例: '在轮播里面有用到哦, throttle', url: './订阅模式.js'},
+                {name: '二叉树', 测试用例: 'testBinaryTree(元素个数)', url: './二叉树.js'},
+                {name: '快速排序', 测试用例: 'testQuickSort()', url: './快速排序.js'},
+                {name: '链表', 测试用例: 'testNodeList()', url: './链表.js'}
+            ];
+            console.table(ApiObject)
+        }
+    </script>
+</body>
+</html>
