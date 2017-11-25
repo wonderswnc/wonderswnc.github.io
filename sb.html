@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>圣杯布局</title>
+  <style>
+    .top {
+      height: 200px;
+      background-color: gray;
+    } 
+    .content {
+      height: 400px;
+      vertical-align: top;
+    }
+    .main {
+      margin-left: 201px;
+      margin-right: 201px;
+      height: 100%;
+      background-color: red;
+    }
+    .left {
+      width: 200px;
+      height: 100%;
+      background-color: yellow;
+      float: left;
+    }
+    .right {
+      width: 200px;
+      height: 100%;
+      background-color: yellow;
+      float: right;
+    }
+    .footer {
+      height: 200px;
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="top"></div>
+    <div class="content">
+      <div class="left"></div>
+      <div class="right"></div>
+      <div class="main">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident sed dolorum harum officia ducimus a, totam numquam animi nisi asperiores dolor blanditiis, autem corporis temporibus voluptatum neque quaerat rem deserunt.
+      </div>
+    </div>
+    <div class="footer"></div>
+  </div>
+
+  <script>
+    function deepClone(_obj) {
+      const getType = target => Object.prototype.toString.call(target).match(/^\[object ([a-zA-Z]+)\]$/)[1];
+      const clone = (obj, newObj) => {
+          for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              if (typeof obj[key] === 'object') {
+                getType(obj) === 'Array' ? clone(obj, []) : clone(obj, {});
+              } else {
+                newObj[key] = obj[key];
+              }
+            }
+          }
+          return newObj;
+        };
+      return getType(_obj) === 'Array' ? clone(_obj, []) : clone(_obj, {});
+    }
+  </script>
+  
+</body>
+</html>

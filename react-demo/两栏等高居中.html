@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两栏等高居中布局</title>
+  <style>
+    .wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      vertical-align: middle;
+      background-color: yellow;
+    }
+    .left {
+      width: 215px;
+      flex: 0 0 auto;
+      padding: 0 5px 0 10px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+    }
+    .box {
+      width: 200px;
+      height: 200px;
+      background-color: #ccc;
+    }
+    .right {
+      flex: 1 1 100%;
+      padding: 0 10px 0 5px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="left">
+      <div class="box"></div>
+    </div>
+    <div class="right">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit et commodi repudiandae amet quia molestiae dolorem quasi, iure perferendis soluta, harum quos ex eveniet consectetur! Doloribus aperiam expedita porro velit.
+      </p>
+    </div>
+  </div>
+</body>
+</html>
