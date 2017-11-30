@@ -44,6 +44,7 @@ class PictureGallary extends Component {
     this.state = {
       picturePositionArray: new Array(12).fill('')
     };
+
     this.getRandom = this.getRandom.bind(this);
     this.getOverStyle = this.getOverStyle.bind(this);
     this.currentCenterIndex = this.currentCenterIndex.bind(this);
@@ -71,9 +72,9 @@ class PictureGallary extends Component {
 
   currentCenterIndex(index) {
     let { picturePositionArray } = this.state, 
-          length = picturePositionArray.length,
-          leftIndexArray = range(length),
-          newPositionArray = [];
+        length = picturePositionArray.length,
+        leftIndexArray = range(length),
+        newPositionArray = [];
     leftIndexArray = leftIndexArray.sort(() => Math.random() * 0.5).slice(0, (length / 2 | 0));
     for (let i = 0;i < length;i ++) {
       console.log(leftIndexArray.indexOf(i) !== -1);
